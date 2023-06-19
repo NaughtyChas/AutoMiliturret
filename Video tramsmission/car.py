@@ -60,6 +60,7 @@ try:
 
                 server.sendall(struct.pack('i', photo_imgencode.shape[0]))
                 server.sendall(photo_imgencode)
+                server.sendall(filename)
                 print('[Status]  Photo sent')
         elif key == ord('p'):
             video_recording = not video_recording
@@ -78,6 +79,7 @@ try:
 
             server.sendall(struct.pack('i', video_imgencode.shape[0]))
             server.sendall(video_imgencode)
+            server.sendall(filename)
 
         if key == ord('q'):
             broke = True
