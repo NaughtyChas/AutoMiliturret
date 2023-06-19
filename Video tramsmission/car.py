@@ -3,6 +3,7 @@ import cv2
 import socket
 import struct
 import os
+import shutil
 
 # import numpy
 
@@ -25,9 +26,18 @@ if not os.path.exists('pics'):
 if not os.path.exists('video'):
     os.makedirs('video')
 
-
 try:
     while True:
+
+        key = cv2.waitKey(1) & 0xFF
+
+        if key == ord('y'):
+            shutil.rmtree('pics')
+            shutil.rmtree('video')
+            os.makedirs('pics')
+            os.makedirs('video')
+            print('Files deleted.')
+
         success, frame = capture.read()
         count = count + 1
         while not success and frame is None:
@@ -38,8 +48,6 @@ try:
         server.sendall(imgencode)
         if count % 10 == 0:
             print('sent ' + str(count) + ' frames')
-
-        key = cv2.waitKey(1) & 0xFF
 
         if key == ord('o'):
             photo_success, photo_frame = capture.read()
@@ -90,3 +98,4 @@ finally:
 
     capture.release()
     server.close()
+
