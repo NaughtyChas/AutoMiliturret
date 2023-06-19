@@ -2,8 +2,8 @@ import cv2
 import numpy
 import socket
 import struct
-import time
 
+address = [0, 0]
 HOST = '192.168.191.122'
 PORT = 9999
 buffSize = 65535
