@@ -5,8 +5,6 @@ import struct
 import os
 import shutil
 
-# import numpy
-
 
 broke = False
 count = 0
@@ -43,9 +41,6 @@ try:
         while not success and frame is None:
             success, frame = capture.read()
         cv2.imshow('VideoFeed (Press q to exit)', frame)
-        #  result, imgencode = cv2.imencode('.jpg', frame, [cv2.IMWRITE_JPEG_QUALITY, 50])
-        #  server.sendall(struct.pack('i', imgencode.shape[0]))
-        #  server.sendall(imgencode)
         if count % 10 == 0:
             print('sent ' + str(count) + ' frames')
 
