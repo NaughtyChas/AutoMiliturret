@@ -2,13 +2,10 @@ import cv2
 import numpy
 import socket
 import struct
-#import os
-#import time
-
 
 address = [0, 0]
-HOST = '192.168.191.122'
-PORT = 9999
+HOST = '192.168.43.201'
+PORT = 2079
 buffSize = 65535
 
 server = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)

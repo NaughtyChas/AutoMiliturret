@@ -13,8 +13,8 @@ count = 0
 photo_count = 0
 video_recording = False
 
-HOST = '10.7.30.16'
-PORT = 9999
+HOST = '192.168.0.32'
+PORT = 2079
 
 server = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 server.connect((HOST, PORT))
@@ -78,7 +78,7 @@ try:
                 f.write(video_imgencode)
 
             server.sendall(struct.pack('i', video_imgencode.shape[0]))
-            server.sendall(filename)
+            server.sendall(video_imgencode)
 
         if key == ord('q'):
             broke = True
