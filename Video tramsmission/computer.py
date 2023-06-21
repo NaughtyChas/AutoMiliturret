@@ -48,6 +48,12 @@ while True:
     print('have received one frame')
     cv2.imshow('frames', imgdecode)
 
+    while True:
+        try:
+            server.recv(1024)
+        except:
+            break
+
 
     if key == ord('q'):
         print('End transmission')
