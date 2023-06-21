@@ -6,9 +6,9 @@ import os
 import time
 
 address = [0, 0]
-HOST = '192.168.43.201'
+HOST = '192.168.1.197'
 PORT = 2079
-buffSize = 90732
+buffSize = 65565
 count = 0
 
 
@@ -18,6 +18,7 @@ if not os.path.exists('pics'):
 
 server = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 server.bind((HOST, PORT))
+
 print('now waiting for frames...')
 
 while True:
@@ -46,6 +47,7 @@ while True:
     cv2.imwrite(filename, imgdecode)
     print('have received one frame')
     cv2.imshow('frames', imgdecode)
+
 
     if key == ord('q'):
         print('End transmission')
