@@ -2,11 +2,8 @@
 # sudo apt-get update
 # sudo apt-get -y install python-rpi.gpio
 
-# import RPi.GPIO as GPIO
+import RPi.GPIO as GPIO
 import time
-import detect
-
-detect.runDetection()
 
 GPIO.setmode(GPIO.BOARD)
 
@@ -17,7 +14,7 @@ servo1.start(0)
 try:
     while True:
         angle = float(input('Enter angle between 0 and 180: '))
-        servo1.ChangeDutyCycle(2 + (angle / 18))
+        servo1.ChangeDutyCycle(2+(angle/18))
         time.sleep(0.5)
         servo1.ChangeDutyCycle(0)
 
