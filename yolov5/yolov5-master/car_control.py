@@ -4,6 +4,15 @@
 
 import RPi.GPIO as GPIO
 import time
+import detect
+
+detect.runDetection()
+
+
+
+
+
+
 
 GPIO.setmode(GPIO.BOARD)
 
