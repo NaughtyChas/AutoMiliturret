@@ -1,7 +1,11 @@
+<<<<<<< Updated upstream
 /Video tramsmission/Transmit test.py
 *.jpg
 .idea/CS-Project.iml
 .idea/inspectionProfiles/profiles_settings.xml
 .idea/modules.xml
 .idea/vcs.xml
+=======
+
+>>>>>>> Stashed changes
 .idea/workspace.xml
