@@ -468,10 +468,11 @@ def save_one_box(xyxy, im, file='image.jpg', gain=1.02, pad=10, square=False, BG
     xyxy = xywh2xyxy(b).long()
     clip_coords(xyxy, im.shape)
     crop = im[int(xyxy[0, 1]):int(xyxy[0, 3]), int(xyxy[0, 0]):int(xyxy[0, 2]), ::(1 if BGR else -1)]
+    print ("stop!")
     print("左上点坐标：（"+str(int(xyxy[0,0]))+","+str(int(xyxy[0,1]))+"）,右下点坐标：（"+str(int(xyxy[0,2]))+","+str(int(xyxy[0,3]))+"）")
-    if int((xyxy[0,0]+int(xyxy[0,2]))/2) <= 540 :
+    if int((xyxy[0,0]+int(xyxy[0,2]))/2) <= 280 :
         print ("left")
-    elif int((xyxy[0,0]+int(xyxy[0,2]))/2) >= 740 :
+    elif int((xyxy[0,0]+int(xyxy[0,2]))/2) >= 360 :
         print ("right")
     else :
         print ("fire!!!")
