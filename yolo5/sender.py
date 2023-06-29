@@ -1,7 +1,7 @@
 import socket
 import sys
 
-IP = '10.7.25.36'
+IP = '192.168.1.185'
 PORT = 25565
 
 while True:
