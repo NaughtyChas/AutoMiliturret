@@ -469,6 +469,12 @@ def save_one_box(xyxy, im, file='image.jpg', gain=1.02, pad=10, square=False, BG
     clip_coords(xyxy, im.shape)
     crop = im[int(xyxy[0, 1]):int(xyxy[0, 3]), int(xyxy[0, 0]):int(xyxy[0, 2]), ::(1 if BGR else -1)]
     print("左上点坐标：（"+str(int(xyxy[0,0]))+","+str(int(xyxy[0,1]))+"）,右下点坐标：（"+str(int(xyxy[0,2]))+","+str(int(xyxy[0,3]))+"）")
+    if int((xyxy[0,0]+int(xyxy[0,2]))/2) <= 540 :
+        print ("left")
+    elif int((xyxy[0,0]+int(xyxy[0,2]))/2) >= 740 :
+        print ("right")
+    else :
+        print ("fire!!!")
     if save:
         file.parent.mkdir(parents=True, exist_ok=True)  # make directory
         cv2.imwrite(str(increment_path(file).with_suffix('.jpg')), crop)
