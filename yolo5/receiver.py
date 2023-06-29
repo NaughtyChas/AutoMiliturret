@@ -56,7 +56,7 @@ while True:
     #
     if data.decode().lower() != 'bye':
         continue
-    GPIO.cleanup()
+    # GPIO.cleanup()
     break
 
 s.close()
