@@ -46,6 +46,7 @@ from utils.general import (LOGGER, check_file, check_img_size, check_imshow, che
 from utils.plots import Annotator, colors, save_one_box
 from utils.torch_utils import select_device, time_sync
 from distance import tank_distance
+from distance import plane_distance
 
 @torch.no_grad()
 def run(weights=ROOT / 'yolov5s.pt',  # model.pt path(s)
@@ -181,6 +182,15 @@ def run(weights=ROOT / 'yolov5s.pt',  # model.pt path(s)
                             label = None if hide_labels else (
                                 names[c] if hide_conf else f'{names[c]} {conf:.2f}')  # 111
                             dis_m = tank_distance(h)
+                            label += f'  {dis_m}m'
+                            txt = '{0}'.format(label)
+                            # annotator.box_label(xyxy, txt, color=(255, 0, 255))
+                            annotator.box_label(xyxy, txt, color=colors(c, True))
+                        if names[int(cls)] == "plane":
+                            c = int(cls)  # integer class  整数类 1111111111
+                            label = None if hide_labels else (
+                                names[c] if hide_conf else f'{names[c]} {conf:.2f}')  # 111
+                            dis_m = plane_distance(h)
                             label += f'  {dis_m}m'
                             txt = '{0}'.format(label)
                             # annotator.box_label(xyxy, txt, color=(255, 0, 255))
