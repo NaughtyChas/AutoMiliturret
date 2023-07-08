@@ -7,9 +7,8 @@ import math
 import os
 from copy import copy
 from pathlib import Path
-import socket
-import sys
 
+import socket
 import cv2
 import matplotlib
 import matplotlib.pyplot as plt
@@ -29,8 +28,6 @@ matplotlib.rc('font', **{'size': 11})
 matplotlib.use('Agg')  # for writing to files only
 IP = '10.7.25.36'
 PORT = 25565
-
-
 
 
 class Colors:
@@ -500,7 +497,6 @@ def save_one_box(xyxy, im, file='image.jpg', gain=1.02, pad=10, square=False, BG
         s.sendto(msg.encode(), (IP, PORT))
         s.close()
         print("fire!!!")
-
     if save:
         file.parent.mkdir(parents=True, exist_ok=True)  # make directory
         cv2.imwrite(str(increment_path(file).with_suffix('.jpg')), crop)
