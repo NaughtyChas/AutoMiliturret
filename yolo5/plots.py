@@ -18,11 +18,31 @@ import seaborn as sn
 import torch
 from PIL import Image, ImageDraw, ImageFont
 
+from models.common import DetectMultiBackend
+from utils.datasets import IMG_FORMATS, VID_FORMATS, LoadImages, LoadStreams
+from utils.general import (LOGGER, check_file, check_img_size, check_imshow, check_requirements, colorstr,
+                           increment_path, non_max_suppression, print_args, scale_coords, strip_optimizer, xyxy2xywh)
+from yolo5.plots import Annotator, colors, save_one_box
+from utils.torch_utils import select_device, time_sync
+from distance import tank_distance
+from distance import plane_distance
+
 from utils.general import (CONFIG_DIR, FONT, LOGGER, Timeout, check_font, check_requirements, clip_coords,
                            increment_path, is_ascii, is_chinese, try_except, xywh2xyxy, xyxy2xywh)
 from utils.metrics import fitness
 
 # Settings
+FILE = Path(__file__).resolve()
+ROOT = FILE.parents[0]  # YOLOv5 root directory
+ROOT = Path(os.path.relpath(ROOT, Path.cwd()))  # relative
+weights = ROOT / 'yolov5s.pt'
+device = '',  # cuda device, i.e. 0 or 0,1,2,3 or cpu
+dnn = False,  # use OpenCV DNN for ONNX inference
+data = ROOT / 'data/coco128.yaml',  # dataset.yaml path
+
+model = DetectMultiBackend(weights, device=device, dnn=dnn, data=data)
+stride, names, pt, jit, onnx, engine = model.stride, model.names, model.pt, model.jit, model.onnx, model.engine
+
 RANK = int(os.getenv('RANK', -1))
 matplotlib.rc('font', **{'size': 11})
 matplotlib.use('Agg')  # for writing to files only
@@ -480,23 +500,23 @@ def save_one_box(xyxy, im, file='image.jpg', gain=1.02, pad=10, square=False, BG
 
     print("左上点坐标：（"+str(int(xyxy[0,0]))+","+str(int(xyxy[0,1]))+"）,右下点坐标：（"+str(int(xyxy[0,2]))+","+str(int(xyxy[0,3]))+"）")
     if int((xyxy[0,0]+int(xyxy[0,2]))/2) <= 280:
-        msg = str('left')
+        msg = str(names+'-left')
         s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         s.sendto(msg.encode(), (IP, PORT))
         s.close()
-        print("left")
+        print(names+'-left')
     elif int((xyxy[0,0]+int(xyxy[0,2]))/2) >= 360:
-        msg = str('right')
+        msg = str(names+'-right')
         s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         s.sendto(msg.encode(), (IP, PORT))
         s.close()
-        print("right")
+        print(names+"-right")
     else:
-        msg = str('fire')
+        msg = str(names+'-fire')
         s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         s.sendto(msg.encode(), (IP, PORT))
         s.close()
-        print("fire!!!")
+        print(names+"-fire!!!")
     if save:
         file.parent.mkdir(parents=True, exist_ok=True)  # make directory
         cv2.imwrite(str(increment_path(file).with_suffix('.jpg')), crop)
